@@ -58,7 +58,7 @@ public class CategoriaModelo extends Connector {
 		}
 	}
 	
-	//3-Update
+	//3-Update-Añadir
 	
 	public void update(Categoria c) {
 		try {

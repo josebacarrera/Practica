@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import modelo.bean.Categoria;
+import modelo.dao.CategoriaModelo;
+
 /**
  * Servlet implementation class Index
  */
@@ -27,7 +30,47 @@ public class Index extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		CategoriaModelo cm = new CategoriaModelo();
+		
+		
+		//borrar
+		if(request.getParameter("id_borrar") != null) {
+			
+			cm.delete(Integer.parseInt(request.getParameter("id_borrar")));
+		}
+		
+		
+		//insertar-añadir
+		if(request.getParameter("form_insertar") != null) {
+			
+			Categoria c = new Categoria();
+			
+			c.setId(Integer.parseInt(request.getParameter("nombre_cat")));
+			
+			c.setNombre(request.getParameter("nombre_cat"));
+			
+			c.setColor(request.getParameter("nombre_cat"));
+			
+			cm.insert(c);
+		}
+		
+		//editar
+		if(request.getParameter("form_editar") != null) {
+			
+			Categoria c = new Categoria();
+			
+			c.setId(Integer.parseInt(request.getParameter("nombre_cat")));
+			
+			c.setNombre(request.getParameter("nombre_cat"));
+			
+			c.setColor(request.getParameter("nombre_cat"));
+			
+			cm.update(c);
+		}
+		
+		request.setAttribute("ListaCategoria", cm.selectAll());
+		
+		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 
 	/**
